@@ -1,14 +1,28 @@
 import React from "react";
+import { Link } from "react-router-dom";
+
+import "./Header.css";
 
 function Header() {
   return (
-    <header style={{ background: "#002B5B", padding: "10px", color: "white" }}>
-      <h1>Opinion Poll</h1>
-      <nav>
-        <a href="/" style={{ margin: "0 10px", color: "white" }}>Vote</a>
-        <a href="/results" style={{ margin: "0 10px", color: "white" }}>Results</a>
-      </nav>
+
+    <header className="ko-header d-flex align-items-center justify-content-between">
+      <div className="container d-flex align-items-center justify-content-between">
+        <Link className="ko-brand text-dark" to="/">
+          KenyaOpinion
+        </Link>
+
+        <div className="d-flex gap-2">
+          <Link to="/login" className="btn ko-btn-outline text-dark">
+            Login
+          </Link>
+          <Link to="/register" className="btn ko-btn-primary">
+            Register
+          </Link>
+        </div>
+      </div>
     </header>
+
   );
 }
 

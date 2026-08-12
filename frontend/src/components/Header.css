@@ -1,0 +1,37 @@
+.ko-page {
+  --ko-navy: #0b1f33;
+  --ko-white: #ffffff;
+  --ko-gold: #d4a72c;
+  --ko-off-white: #f8fafc;
+  --ko-dark-slate: #172033;
+  --ko-gray: #64748b;
+  --ko-green: #15803d;
+  --ko-red: #b91c1c;
+
+  background-color: var(--ko-off-white);
+  color: var(--ko-dark-slate);
+  font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  /* margin-top: 10vh; */
+}
+
+.ko-header{
+    height: 10vh;
+    position: fixed;
+    background-color: #ffffff;
+    width: 100%;
+    top: 0;
+}
+
+.ko-navbar {
+  background-color: var(--ko-navy);
+  padding-top: 0.85rem;
+  padding-bottom: 0.85rem;
+}
+
+.ko-brand {
+  color: var(--ko-dark-slate) !important;
+  font-weight: 700;
+  font-size: 1.35rem;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+}

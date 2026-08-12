@@ -1,19 +1,18 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import MainLayout from "./layouts/MainLayout";
-// import VotePage from "./pages/VotePage";
-// import ResultsPage from "./pages/ResultsPage";
+import Home from "./pages/Home";
+import Register from "./pages/auth/Register";
 
 function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<MainLayout />}>
-          <Route index element={<VotePage />} />
-          <Route path="results" element={<ResultsPage />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
+
+    <Routes>
+      <Route path="/" element={<Home />}>
+      </Route>
+      <Route path="/register" element={<Register />}></Route>
+    </Routes>
+
   );
 }
 

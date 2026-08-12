@@ -1,0 +1,245 @@
+/* KenyaOpinion brand colors, used as CSS variables for easy reuse */
+.ko-page {
+  --ko-navy: #0b1f33;
+  --ko-white: #ffffff;
+  --ko-gold: #d4a72c;
+  --ko-off-white: #f8fafc;
+  --ko-dark-slate: #172033;
+  --ko-gray: #64748b;
+  --ko-green: #15803d;
+  --ko-red: #b91c1c;
+
+  background-color: var(--ko-off-white);
+  color: var(--ko-dark-slate);
+  font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+
+.main{
+     padding-top: 10vh; 
+}
+
+/* ---------- Navbar ---------- */
+
+.ko-btn-outline {
+  background-color: transparent;
+  border: 1px solid var(--ko-white);
+  color: var(--ko-white);
+  font-weight: 500;
+}
+
+.ko-btn-outline:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: var(--ko-white);
+}
+
+.ko-btn-primary {
+  background-color: var(--ko-gold);
+  border: 1px solid var(--ko-gold);
+  color: var(--ko-navy);
+  font-weight: 600;
+}
+
+.ko-btn-primary:hover {
+  background-color: #c0961f;
+  border-color: #c0961f;
+  color: var(--ko-navy);
+}
+
+/* ---------- Hero Section ---------- */
+.ko-hero {
+  background-color: var(--ko-navy);
+  color: var(--ko-white);
+  padding: 4rem 0;
+}
+
+.ko-hero-title {
+  font-weight: 700;
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  color: var(--ko-white);
+}
+
+.ko-hero-text {
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 1.05rem;
+  line-height: 1.6;
+  margin-bottom: 1.75rem;
+  max-width: 42rem;
+}
+
+.ko-btn-vote {
+  background-color: var(--ko-gold);
+  border: none;
+  color: var(--ko-navy);
+  font-weight: 700;
+  padding: 0.65rem 2rem;
+  font-size: 1.05rem;
+  border-radius: 0.4rem;
+  transition: transform 0.15s ease, background-color 0.15s ease;
+}
+
+.ko-btn-vote:hover {
+  background-color: #c0961f;
+  color: var(--ko-navy);
+  transform: translateY(-1px);
+}
+
+.ko-hero-panel {
+  background-color: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 0.5rem;
+  padding: 1.75rem;
+  text-align: center;
+}
+
+.ko-hero-panel-label {
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.65);
+  margin-bottom: 0.5rem;
+}
+
+.ko-hero-panel-name {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--ko-white);
+  margin-bottom: 0.25rem;
+}
+
+.ko-hero-panel-percentage {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--ko-gold);
+  margin-bottom: 0;
+}
+
+/* ---------- Sections ---------- */
+.ko-section {
+  padding: 3.5rem 0;
+}
+
+.ko-section-alt {
+  background-color: var(--ko-white);
+}
+
+.ko-section-title {
+  font-weight: 700;
+  color: var(--ko-navy);
+  margin-bottom: 0.4rem;
+}
+
+.ko-section-subtitle {
+  color: var(--ko-gray);
+  margin-bottom: 2rem;
+}
+
+/* ---------- Poll results ---------- */
+.ko-results-card {
+  background-color: var(--ko-white);
+  border-radius: 0.5rem;
+  padding: 1.75rem;
+  box-shadow: 0 1px 3px rgba(11, 31, 51, 0.08);
+}
+
+.ko-result-row {
+  margin-bottom: 1.5rem;
+}
+
+.ko-result-row:last-child {
+  margin-bottom: 0;
+}
+
+.ko-result-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 0.4rem;
+}
+
+.ko-candidate-name {
+  font-weight: 600;
+  color: var(--ko-dark-slate);
+}
+
+.ko-candidate-percentage {
+  font-weight: 700;
+  color: var(--ko-navy);
+}
+
+.ko-progress {
+  height: 0.85rem;
+  background-color: #e2e8f0;
+  border-radius: 0.5rem;
+}
+
+.ko-progress-bar {
+  background-color: var(--ko-gold);
+  border-radius: 0.5rem;
+}
+
+/* ---------- Regional cards ---------- */
+.ko-region-card {
+  border: 1px solid #e2e8f0;
+  border-radius: 0.5rem;
+  height: 100%;
+}
+
+.ko-region-title {
+  font-weight: 700;
+  color: var(--ko-navy);
+  margin-bottom: 1.25rem;
+  font-size: 1.15rem;
+}
+
+/* ---------- Footer ---------- */
+.ko-footer {
+  background-color: var(--ko-navy);
+  color: rgba(255, 255, 255, 0.85);
+  padding: 2.5rem 0 1.5rem;
+}
+
+.ko-footer-brand {
+  color: var(--ko-white);
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.ko-footer-text {
+  color: rgba(255, 255, 255, 0.7);
+  margin-bottom: 0;
+}
+
+.ko-footer-link {
+  color: rgba(255, 255, 255, 0.75);
+  text-decoration: none;
+  font-size: 0.95rem;
+}
+
+.ko-footer-link:hover {
+  color: var(--ko-gold);
+  text-decoration: underline;
+}
+
+.ko-footer-divider {
+  border-color: rgba(255, 255, 255, 0.15);
+  margin: 1.5rem 0 1rem;
+}
+
+.ko-footer-copyright {
+  color: rgba(255, 255, 255, 0.55);
+  font-size: 0.85rem;
+  margin-bottom: 0;
+}
+
+/* ---------- Responsive tweaks ---------- */
+@media (max-width: 991.98px) {
+  .ko-hero {
+    padding: 3rem 0;
+  }
+
+  .ko-hero-title {
+    font-size: 2rem;
+  }
+}
