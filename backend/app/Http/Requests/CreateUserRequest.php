@@ -48,7 +48,8 @@ class CreateUserRequest extends FormRequest
                 'unique:voter_profiles,national_id',
             ],
 
-            'region_id' => ['required', 'integer'],
+            'region_id' => ['required', 'integer','exists:regions,id',
+],
         ];
     }
 }

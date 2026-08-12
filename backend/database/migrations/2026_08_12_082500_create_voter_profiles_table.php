@@ -15,7 +15,9 @@ return new class extends Migration
             $table->id();
             $table->integer('national_id')->unique();
             $table->foreignId('region_id')
-            ->constraint('regions');
+            ->constrained('regions')
+            ->cascadeOnDelete()
+            ->cascadeOnUpdate();
             $table->timestamps();
         });
     }

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Region;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -16,5 +17,9 @@ protected $fillable = [
 
 public function user() : BelongsTo{
     return $this->belongsTo(User::class);
+}
+
+public function region() :BelongsTo{
+    return $this->belongsTo(Region::class);
 }
 }

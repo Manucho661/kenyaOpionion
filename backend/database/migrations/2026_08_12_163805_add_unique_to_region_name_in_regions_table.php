@@ -11,12 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('voter_profiles', function (Blueprint $table) {
-            $table->foreignId('user_id')
-            ->after('id')
-            ->constrained('users')
-            ->cascadeOnDelete()
-            ->cascadeOnUpdate();
+        Schema::table('regions', function (Blueprint $table) {
+            $table->unique('region_name');
         });
     }
 
@@ -25,8 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('voter_profiles', function (Blueprint $table) {
-            //
+        Schema::table('regions', function (Blueprint $table) {
+            $table->dropUnique('region_name');
         });
     }
 };
