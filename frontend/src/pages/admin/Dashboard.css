@@ -1,0 +1,177 @@
+.ko-dashboard-page {
+  --ko-navy: #0b1f33;
+  --ko-white: #ffffff;
+  --ko-gold: #d4a72c;
+  --ko-off-white: #f8fafc;
+  --ko-dark-slate: #172033;
+  --ko-gray: #64748b;
+  --ko-green: #15803d;
+  --ko-red: #b91c1c;
+
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--ko-off-white);
+  color: var(--ko-dark-slate);
+}
+
+/* ---------- Header ---------- */
+.ko-dash-header {
+  background-color: var(--ko-white);
+  border-bottom: 1px solid #e2e8f0;
+  padding-top: 0.85rem;
+  padding-bottom: 0.85rem;
+  position: sticky;
+  top: 0;
+  z-index: 1030;
+}
+
+.ko-dash-brand {
+  color: var(--ko-navy);
+  font-weight: 700;
+  font-size: 1.25rem;
+  text-decoration: none;
+}
+
+.ko-dash-brand-tag {
+  color: var(--ko-gold);
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.ko-btn-outline {
+  background-color: transparent;
+  border: 1px solid var(--ko-navy);
+  color: var(--ko-navy);
+  font-weight: 500;
+}
+
+.ko-btn-outline:hover {
+  background-color: var(--ko-navy);
+  color: var(--ko-white);
+}
+
+/* ---------- Main content ---------- */
+.ko-dash-main {
+  flex: 1;
+  padding: 2.5rem 0;
+}
+
+.ko-dash-title {
+  color: var(--ko-navy);
+  font-weight: 700;
+  font-size: 1.6rem;
+  margin-bottom: 0.35rem;
+}
+
+.ko-dash-subtitle {
+  color: var(--ko-gray);
+  font-size: 0.95rem;
+  margin-bottom: 0;
+}
+
+/* ---------- Cards ---------- */
+.ko-dash-card {
+  border: 1px solid #e2e8f0;
+  border-radius: 0.5rem;
+  height: 100%;
+}
+
+.ko-dash-card-title {
+  color: var(--ko-navy);
+  font-weight: 700;
+  font-size: 1.1rem;
+  margin-bottom: 0;
+}
+
+.ko-dash-count {
+  background-color: var(--ko-off-white);
+  color: var(--ko-navy);
+  font-weight: 600;
+  font-size: 0.85rem;
+  border-radius: 1rem;
+  padding: 0.15rem 0.65rem;
+  border: 1px solid #e2e8f0;
+}
+
+/* ---------- Lists ---------- */
+.ko-dash-list-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: var(--ko-dark-slate);
+  font-weight: 500;
+  padding: 0.65rem 1rem;
+}
+
+.ko-dash-list-item:hover {
+  background-color: var(--ko-off-white);
+}
+
+.ko-avatar {
+  flex-shrink: 0;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 50%;
+  background-color: var(--ko-navy);
+  color: var(--ko-white);
+  font-size: 0.8rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ---------- Buttons ---------- */
+.ko-btn-primary {
+  background-color: var(--ko-navy);
+  border: 1px solid var(--ko-navy);
+  color: var(--ko-white);
+  font-weight: 600;
+}
+
+.ko-btn-primary:hover {
+  background-color: #132a45;
+  border-color: #132a45;
+  color: var(--ko-white);
+}
+
+/* ---------- Footer ---------- */
+.ko-dash-footer {
+  background-color: var(--ko-navy);
+  color: rgba(255, 255, 255, 0.85);
+  padding: 2rem 0 1.25rem;
+}
+
+.ko-dash-footer-brand {
+  color: var(--ko-white);
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.ko-dash-footer-text {
+  color: rgba(255, 255, 255, 0.7);
+  margin-bottom: 0;
+}
+
+.ko-dash-footer-link {
+  color: rgba(255, 255, 255, 0.75);
+  text-decoration: none;
+  font-size: 0.95rem;
+}
+
+.ko-dash-footer-link:hover {
+  color: var(--ko-gold);
+  text-decoration: underline;
+}
+
+.ko-dash-footer-divider {
+  border-color: rgba(255, 255, 255, 0.15);
+  margin: 1.25rem 0 1rem;
+}
+
+.ko-dash-footer-copyright {
+  color: rgba(255, 255, 255, 0.55);
+  font-size: 0.85rem;
+  margin-bottom: 0;
+}

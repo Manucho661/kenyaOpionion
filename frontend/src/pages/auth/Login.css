@@ -1,0 +1,183 @@
+/* ---------- Page wrapper with background image ---------- */
+.ko-login-page {
+  --ko-navy: #0b1f33;
+  --ko-white: #ffffff;
+  --ko-gold: #d4a72c;
+  --ko-off-white: #f8fafc;
+  --ko-dark-slate: #172033;
+  --ko-gray: #64748b;
+  --ko-green: #15803d;
+  --ko-red: #b91c1c;
+
+  min-height: 100vh;
+  width: 100%;
+  background-image: url("https://images.unsplash.com/photo-1540910419892-4a36d2c3266c?auto=format&fit=crop&w=1920&q=80");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+/* Dark navy overlay so the form stays readable over the photo */
+.ko-login-overlay {
+  min-height: 100vh;
+  width: 100%;
+  background-color: rgba(11, 31, 51, 0.72);
+  padding: 3rem 0;
+  display: flex;
+  align-items: center;
+}
+
+/* ---------- Form card ---------- */
+.ko-login-card {
+  background-color: var(--ko-white);
+  border-radius: 0.6rem;
+  padding: 2.25rem 2rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+}
+
+.ko-login-brand {
+  display: inline-block;
+  color: var(--ko-navy);
+  font-weight: 700;
+  font-size: 1.25rem;
+  text-decoration: none;
+  margin-bottom: 0.75rem;
+}
+
+.ko-login-title {
+  color: var(--ko-navy);
+  font-weight: 700;
+  font-size: 1.5rem;
+  margin-bottom: 0.35rem;
+}
+
+.ko-login-subtitle {
+  color: var(--ko-gray);
+  font-size: 0.95rem;
+  margin-bottom: 0;
+}
+
+/* ---------- Form fields ---------- */
+.ko-login-card .form-label {
+  color: var(--ko-dark-slate);
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
+.ko-login-card .form-control {
+  border: 1px solid #cbd5e1;
+}
+
+.ko-login-card .form-control:focus {
+  border-color: var(--ko-gold);
+  box-shadow: 0 0 0 0.2rem rgba(212, 167, 44, 0.25);
+}
+
+/* ---------- Password field with show/hide toggle ---------- */
+.ko-password-field {
+  position: relative;
+}
+
+.ko-password-field .form-control {
+  padding-right: 3.5rem;
+}
+
+.ko-password-toggle {
+  position: absolute;
+  top: 50%;
+  right: 0.75rem;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: var(--ko-navy);
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 0.15rem 0.3rem;
+  cursor: pointer;
+}
+
+.ko-password-toggle:hover {
+  color: var(--ko-gold);
+}
+
+/* ---------- Buttons ---------- */
+.ko-btn-vote {
+  background-color: var(--ko-gold);
+  border: 1px solid var(--ko-gold);
+  color: var(--ko-navy);
+  font-weight: 700;
+  padding: 0.55rem 0;
+}
+
+.ko-btn-vote:hover {
+  background-color: #c0961f;
+  border-color: #c0961f;
+  color: var(--ko-navy);
+}
+
+.ko-btn-vote:disabled {
+  background-color: #e2e8f0;
+  border-color: #e2e8f0;
+  color: var(--ko-gray);
+  opacity: 1;
+}
+
+.ko-btn-google {
+  background-color: var(--ko-white);
+  border: 1px solid #cbd5e1;
+  color: var(--ko-dark-slate);
+  font-weight: 600;
+  padding: 0.55rem 0;
+}
+
+.ko-btn-google:hover {
+  background-color: var(--ko-off-white);
+  border-color: #94a3b8;
+}
+
+/* ---------- Divider ---------- */
+.ko-divider {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  color: var(--ko-gray);
+  font-size: 0.8rem;
+  margin: 1rem 0;
+}
+
+.ko-divider::before,
+.ko-divider::after {
+  content: "";
+  flex: 1;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.ko-divider span {
+  padding: 0 0.75rem;
+}
+
+/* ---------- Register hint ---------- */
+.ko-register-hint {
+  color: var(--ko-gray);
+  font-size: 0.9rem;
+  margin-bottom: 0;
+}
+
+.ko-register-link {
+  color: var(--ko-navy);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.ko-register-link:hover {
+  color: var(--ko-gold);
+  text-decoration: underline;
+}
+
+/* ---------- Responsive tweaks ---------- */
+@media (max-width: 575.98px) {
+  .ko-login-card {
+    padding: 1.75rem 1.25rem;
+  }
+}

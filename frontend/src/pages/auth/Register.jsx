@@ -24,7 +24,8 @@ function Register() {
     });
 
     const handleChange = (event) => {
-        const { name, value } = event.target;
+        const { name, value } = ev
+        ent.target;
         setFormData((prev) => ({ ...prev, [name]: value }));
     };
 
