@@ -8,31 +8,42 @@ use Illuminate\Http\Request;
 class RegionController extends Controller
 {
     //
+    public function index()
+    {
+        $regions = Region::all();
+
+        return response()->json($regions);
+    }
     public function store(Request $request)
     {
         $validated = $request->validate(
             [
                 'region_name' => [
-                    'required', 
-                    'string', 
+                    'required',
+                    'string',
                     'max:255',
                     'unique:regions,region_name'
-                    ],
+                ],
             ]
         );
         $region = Region::create($validated);
 
         return response()->json([
             'success' => true,
-            "Message" => 'Region created successfully'
+            "message" => 'Region created successfully',
+            "region" => $region
         ]);
     }
 
-    public function update(){
+    public function update() {}
 
-    }
-
-    public function destroy(){
-        
+    public function destroy(string $id)
+    {
+        $region = Region::find($id);
+        if (!$region) {
+            return response()->json([
+                'Region not found'
+            ], 404);
+        }
     }
 }

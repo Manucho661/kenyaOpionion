@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./Register.css";
+import apiClient from "../../api/apiClient";
 
 // Dummy region options.
 // Kept as an array so more regions can be added later without
@@ -13,6 +14,29 @@ function Register() {
     const [step, setStep] = useState(1);
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
+    // regions
+    const [regions, setRegions] = useState([]);
+    const [regionsLoading, setRegionsLoading] = useState(false);
+    const [regionsError, setRegionsError] = useState(false);
+    useEffect(() => {
+        const fetchRegions = async () => {
+            setRegionsLoading(true);
+            try {
+                const response = await apiClient.get('/regions');
+                setRegions(response.data);
+            }
+            catch (error) {
+                setRegionsError(true);
+                console.log(error);
+            }
+            finally {
+                setRegionsLoading(false);
+            }
+        }
+
+        fetchRegions();
+    }, []);
 
     const [formData, setFormData] = useState({
         fullName: "",
@@ -130,20 +154,39 @@ function Register() {
                                             <label htmlFor="region" className="form-label">
                                                 Region
                                             </label>
+
                                             <select
                                                 className="form-select"
                                                 id="region"
                                                 name="region"
                                                 value={formData.region}
                                                 onChange={handleChange}
+                                                disabled={regionsLoading || regionsError || regions.length === 0}
                                             >
-                                                <option value="">Select your region</option>
-                                                {regionOptions.map((region) => (
-                                                    <option key={region} value={region}>
-                                                        {region}
-                                                    </option>
-                                                ))}
+                                                <option value="">
+                                                    {regionsLoading
+                                                        ? "Loading regions..."
+                                                        : regionsError
+                                                            ? "Unable to load regions"
+                                                            : regions.length === 0
+                                                                ? "No regions available"
+                                                                : "Select your region"}
+                                                </option>
+
+                                                {!regionsLoading &&
+                                                    !regionsError &&
+                                                    regions.map((region) => (
+                                                        <option key={region.id} value={region.id}>
+                                                            {region.region_name}
+                                                        </option>
+                                                    ))}
                                             </select>
+
+                                            {regionsError && (
+                                                <small className="text-danger">
+                                                    Failed to load regions. Please try again.
+                                                </small>
+                                            )}
                                         </div>
                                     </div>
                                 )}

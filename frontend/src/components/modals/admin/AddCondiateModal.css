@@ -1,0 +1,86 @@
+.ko-modal-backdrop {
+  --ko-navy: #0b1f33;
+  --ko-white: #ffffff;
+  --ko-gold: #d4a72c;
+  --ko-off-white: #f8fafc;
+  --ko-dark-slate: #172033;
+  --ko-gray: #64748b;
+
+  position: fixed;
+  inset: 0;
+  background-color: rgba(11, 31, 51, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  z-index: 1050;
+}
+
+.ko-modal {
+  background-color: var(--ko-white);
+  border-radius: 0.5rem;
+  width: 100%;
+  max-width: 420px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+}
+
+.ko-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.1rem 1.25rem;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.ko-modal-title {
+  color: var(--ko-navy);
+  font-weight: 700;
+  font-size: 1.1rem;
+  margin-bottom: 0;
+}
+
+.ko-modal-close {
+  background: none;
+  border: none;
+  color: var(--ko-gray);
+  font-size: 1.4rem;
+  line-height: 1;
+  padding: 0;
+  cursor: pointer;
+}
+
+.ko-modal-close:hover {
+  color: var(--ko-navy);
+}
+
+.ko-modal-body {
+  padding: 1.25rem;
+}
+
+.ko-modal-body .form-label {
+  color: var(--ko-dark-slate);
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
+.ko-modal-body .form-control {
+  border: 1px solid #cbd5e1;
+}
+
+.ko-modal-body .form-control:focus {
+  border-color: var(--ko-gold);
+  box-shadow: 0 0 0 0.2rem rgba(212, 167, 44, 0.25);
+}
+
+.ko-btn-primary {
+  background-color: var(--ko-navy);
+  border: 1px solid var(--ko-navy);
+  color: var(--ko-white);
+  font-weight: 600;
+}
+
+.ko-btn-primary:hover {
+  background-color: #132a45;
+  border-color: #132a45;
+  color: var(--ko-white);
+}
