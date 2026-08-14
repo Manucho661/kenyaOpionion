@@ -27,7 +27,13 @@ function Login() {
             const res = await apiClient.post("/login", formData);
 
             toast.success(res.data.message);
-            navigate('/dashboard');
+            if (res.data.user.user_role == 'admin') {
+                navigate('/dashboard');
+            }
+            else{
+                navigate('/')
+            }
+
         } catch (error) {
             toast.error(error.response?.data?.message || "Something went wrong.");
         }
