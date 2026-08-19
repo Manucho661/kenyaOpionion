@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./Register.css";
+import { toast } from "react-toastify";
 import apiClient from "../../api/apiClient";
 
 // Dummy region options.
@@ -11,6 +12,7 @@ const regionOptions = ["Western", "Nairobi"];
 const TOTAL_STEPS = 2;
 
 function Register() {
+    const navigate = useNavigate();
     const [step, setStep] = useState(1);
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -38,20 +40,23 @@ function Register() {
         fetchRegions();
     }, []);
 
+    const role = 'voter';
     const [formData, setFormData] = useState({
-        fullName: "",
-        nationalId: "",
-        region: "",
+        name: "",
+        national_id: "",
+        region_id: "",
+        role,
         email: "",
         password: "",
-        confirmPassword: "",
+        password_confirmation: "",
     });
 
     const handleChange = (event) => {
-        const { name, value } = ev
-        ent.target;
-        setFormData((prev) => ({ ...prev, [name]: value }));
+        const { name, value } = event.target
+        setFormData((prev) => ({ ...prev, [name]: value }))
     };
+
+
 
     // ---- Password rule checks ----
     const hasMinLength = formData.password.length >= 8;
@@ -63,17 +68,17 @@ function Register() {
         hasMinLength && hasUppercase && hasLowercase && hasSpecialChar;
 
     const passwordsMatch =
-        formData.confirmPassword.length > 0 &&
-        formData.password === formData.confirmPassword;
+        formData.password_confirmation.length > 0 &&
+        formData.password === formData.password_confirmation;
 
     // Very simple email pattern, good enough for this static form.
     const isEmailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email);
 
     // ---- Section validity ----
     const isSection1Valid =
-        formData.fullName.trim() !== "" &&
-        formData.nationalId.trim() !== "" &&
-        formData.region !== "";
+        formData.name.trim() !== "" &&
+        formData.national_id.trim() !== "" &&
+        formData.region_id !== "";
 
     const isSection2Valid =
         isEmailValid && isPasswordValid && passwordsMatch;
@@ -91,10 +96,23 @@ function Register() {
     };
 
     // Placeholder for the future registration API call.
-    const handleRegisterClick = () => {
-        // TODO: Connect this to the registration/authentication logic later.
-        console.log("Register clicked with:", formData);
-    };
+    // const handleRegisterClick = () => {
+    //     // TODO: Connect this to the registration/authentication logic later.
+    //     console.log("Register clicked with:", formData);
+    // };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            const response = await apiClient.post('/users', formData);
+            toast.success(response.data.message);
+            navigate('/')
+        }
+        catch (error) {
+            toast.error(error.response?.data?.message || "Something went wrong.");
+        }
+        console.log('registration form clicked');
+    }
 
     const progressPercentage = (step / TOTAL_STEPS) * 100;
 
@@ -116,245 +134,247 @@ function Register() {
                                 </div>
 
                                 {/* Section 1: Basic Details */}
-                                {step === 1 && (
-                                    <div>
-                                        <h2 className="ko-step-heading">Basic Details</h2>
-
-                                        <div className="mb-3">
-                                            <label htmlFor="fullName" className="form-label">
-                                                Your Name
-                                            </label>
-                                            <input
-                                                type="text"
-                                                className="form-control"
-                                                id="fullName"
-                                                name="fullName"
-                                                placeholder="e.g. Jane Wanjiru"
-                                                value={formData.fullName}
-                                                onChange={handleChange}
-                                            />
-                                        </div>
-
-                                        <div className="mb-3">
-                                            <label htmlFor="nationalId" className="form-label">
-                                                Your National ID
-                                            </label>
-                                            <input
-                                                type="text"
-                                                className="form-control"
-                                                id="nationalId"
-                                                name="nationalId"
-                                                placeholder="e.g. 12345678"
-                                                value={formData.nationalId}
-                                                onChange={handleChange}
-                                            />
-                                        </div>
-
-                                        <div className="mb-3">
-                                            <label htmlFor="region" className="form-label">
-                                                Region
-                                            </label>
-
-                                            <select
-                                                className="form-select"
-                                                id="region"
-                                                name="region"
-                                                value={formData.region}
-                                                onChange={handleChange}
-                                                disabled={regionsLoading || regionsError || regions.length === 0}
-                                            >
-                                                <option value="">
-                                                    {regionsLoading
-                                                        ? "Loading regions..."
-                                                        : regionsError
-                                                            ? "Unable to load regions"
-                                                            : regions.length === 0
-                                                                ? "No regions available"
-                                                                : "Select your region"}
-                                                </option>
-
-                                                {!regionsLoading &&
-                                                    !regionsError &&
-                                                    regions.map((region) => (
-                                                        <option key={region.id} value={region.id}>
-                                                            {region.region_name}
-                                                        </option>
-                                                    ))}
-                                            </select>
-
-                                            {regionsError && (
-                                                <small className="text-danger">
-                                                    Failed to load regions. Please try again.
-                                                </small>
-                                            )}
-                                        </div>
-                                    </div>
-                                )}
-
-                                {/* Section 2: Email & Password */}
-                                {step === 2 && (
-                                    <div>
-                                        <h2 className="ko-step-heading">Account Details</h2>
-
-                                        <div className="mb-3">
-                                            <label htmlFor="email" className="form-label">
-                                                Your Email
-                                            </label>
-                                            <input
-                                                type="email"
-                                                className="form-control"
-                                                id="email"
-                                                name="email"
-                                                placeholder="e.g. jane@example.com"
-                                                value={formData.email}
-                                                onChange={handleChange}
-                                            />
-                                        </div>
-
-                                        <div className="mb-2">
-                                            <label htmlFor="password" className="form-label">
-                                                Password
-                                            </label>
-                                            <div className="ko-password-field">
-                                                <input
-                                                    type={showPassword ? "text" : "password"}
-                                                    className="form-control"
-                                                    id="password"
-                                                    name="password"
-                                                    placeholder="Enter a strong password"
-                                                    value={formData.password}
-                                                    onChange={handleChange}
-                                                />
-                                                <button
-                                                    type="button"
-                                                    className="ko-password-toggle"
-                                                    onClick={() => setShowPassword((prev) => !prev)}
-                                                    aria-label={
-                                                        showPassword ? "Hide password" : "Show password"
-                                                    }
-                                                >
-                                                    {showPassword ? "Hide" : "Show"}
-                                                </button>
-                                            </div>
-                                        </div>
-
-                                        <ul className="ko-password-checklist mb-3">
-                                            <div className="d-flex">
-                                                <li className={hasMinLength ? "ko-check-met" : ""}>
-                                                    <span className="ko-check-icon">
-                                                        {hasMinLength ? "✓" : "○"}
-                                                    </span>
-                                                    At least 8 characters
-                                                </li>
-                                                <li className={hasUppercase ? "ko-check-met" : ""}>
-                                                    <span className="ko-check-icon">
-                                                        {hasUppercase ? "✓" : "○"}
-                                                    </span>
-                                                    One uppercase letter
-                                                </li>
-                                            </div>
-                                            <div className="d-flex">
-                                                <li className={hasLowercase ? "ko-check-met" : ""}>
-                                                    <span className="ko-check-icon">
-                                                        {hasLowercase ? "✓" : "○"}
-                                                    </span>
-                                                    One lowercase letter
-                                                </li>
-                                                <li className={hasSpecialChar ? "ko-check-met" : ""}>
-                                                    <span className="ko-check-icon">
-                                                        {hasSpecialChar ? "✓" : "○"}
-                                                    </span>
-                                                    One special character
-                                                </li>
-                                            </div>
-
-
-                                        </ul>
-
-                                        <div className="mb-1">
-                                            <label htmlFor="confirmPassword" className="form-label">
-                                                Confirm Password
-                                            </label>
-                                            <div className="ko-password-field">
-                                                <input
-                                                    type={showConfirmPassword ? "text" : "password"}
-                                                    className="form-control"
-                                                    id="confirmPassword"
-                                                    name="confirmPassword"
-                                                    placeholder="Re-enter your password"
-                                                    value={formData.confirmPassword}
-                                                    onChange={handleChange}
-                                                />
-                                                <button
-                                                    type="button"
-                                                    className="ko-password-toggle"
-                                                    onClick={() =>
-                                                        setShowConfirmPassword((prev) => !prev)
-                                                    }
-                                                    aria-label={
-                                                        showConfirmPassword
-                                                            ? "Hide password"
-                                                            : "Show password"
-                                                    }
-                                                >
-                                                    {showConfirmPassword ? "Hide" : "Show"}
-                                                </button>
-                                            </div>
-                                        </div>
-
-                                        {formData.confirmPassword.length > 0 && (
-                                            <p
-                                                className={
-                                                    passwordsMatch
-                                                        ? "ko-match-text ko-match-success"
-                                                        : "ko-match-text ko-match-error"
-                                                }
-                                            >
-                                                {passwordsMatch
-                                                    ? "Passwords match"
-                                                    : "Passwords do not match"}
-                                            </p>
-                                        )}
-                                    </div>
-                                )}
-
-                                {/* Navigation buttons */}
-                                <div className="d-flex justify-content-between mt-4">
-                                    {step === 2 ? (
-                                        <button
-                                            type="button"
-                                            className="btn ko-btn-outline"
-                                            onClick={goPrevious}
-                                        >
-                                            Previous
-                                        </button>
-                                    ) : (
-                                        <span></span>
-                                    )}
+                                <form onSubmit={handleSubmit}>
 
                                     {step === 1 && (
-                                        <button
-                                            type="button"
-                                            className="btn ko-btn-primary"
-                                            onClick={goNext}
-                                            disabled={!isSection1Valid}
-                                        >
-                                            Next
-                                        </button>
+                                        <div>
+                                            <h2 className="ko-step-heading">Basic Details</h2>
+
+                                            <div className="mb-3">
+                                                <label htmlFor="name" className="form-label">
+                                                    Your Name
+                                                </label>
+                                                <input
+                                                    type="text"
+                                                    className="form-control"
+                                                    id="name"
+                                                    name="name"
+                                                    placeholder="e.g. Jane Wanjiru"
+                                                    value={formData.name}
+                                                    onChange={handleChange}
+                                                />
+                                            </div>
+
+                                            <div className="mb-3">
+                                                <label htmlFor="national_id" className="form-label">
+                                                    Your National ID
+                                                </label>
+                                                <input
+                                                    type="text"
+                                                    className="form-control"
+                                                    id="national_id"
+                                                    name="national_id"
+                                                    placeholder="e.g. 12345678"
+                                                    value={formData.national_id}
+                                                    onChange={handleChange}
+                                                />
+                                            </div>
+
+                                            <div className="mb-3">
+                                                <label htmlFor="region" className="form-label">
+                                                    Region
+                                                </label>
+
+                                                <select
+                                                    className="form-select"
+                                                    id="region"
+                                                    name="region_id"
+                                                    value={formData.region_id}
+                                                    onChange={handleChange}
+                                                    disabled={regionsLoading || regionsError || regions.length === 0}
+                                                >
+                                                    <option value="">
+                                                        {regionsLoading
+                                                            ? "Loading regions..."
+                                                            : regionsError
+                                                                ? "Unable to load regions"
+                                                                : regions.length === 0
+                                                                    ? "No regions available"
+                                                                    : "Select your region"}
+                                                    </option>
+
+                                                    {!regionsLoading &&
+                                                        !regionsError &&
+                                                        regions.map((region) => (
+                                                            <option key={region.id} value={region.id}>
+                                                                {region.region_name}
+                                                            </option>
+                                                        ))}
+                                                </select>
+
+                                                {regionsError && (
+                                                    <small className="text-danger">
+                                                        Failed to load regions. Please try again.
+                                                    </small>
+                                                )}
+                                            </div>
+                                        </div>
                                     )}
 
+                                    {/* Section 2: Email & Password */}
                                     {step === 2 && (
-                                        <button
-                                            type="button"
-                                            className="btn ko-btn-vote"
-                                            onClick={handleRegisterClick}
-                                            disabled={!isFormValid}
-                                        >
-                                            Register
-                                        </button>
-                                    )}
-                                </div>
+                                        <div>
+                                            <h2 className="ko-step-heading">Account Details</h2>
 
+                                            <div className="mb-3">
+                                                <label htmlFor="email" className="form-label">
+                                                    Your Email
+                                                </label>
+                                                <input
+                                                    type="email"
+                                                    className="form-control"
+                                                    id="email"
+                                                    name="email"
+                                                    placeholder="e.g. jane@example.com"
+                                                    value={formData.email}
+                                                    onChange={handleChange}
+                                                />
+                                            </div>
+
+                                            <div className="mb-2">
+                                                <label htmlFor="password" className="form-label">
+                                                    Password
+                                                </label>
+                                                <div className="ko-password-field">
+                                                    <input
+                                                        type={showPassword ? "text" : "password"}
+                                                        className="form-control"
+                                                        id="password"
+                                                        name="password"
+                                                        placeholder="Enter a strong password"
+                                                        value={formData.password}
+                                                        onChange={handleChange}
+                                                    />
+                                                    <button
+                                                        type="button"
+                                                        className="ko-password-toggle"
+                                                        onClick={() => setShowPassword((prev) => !prev)}
+                                                        aria-label={
+                                                            showPassword ? "Hide password" : "Show password"
+                                                        }
+                                                    >
+                                                        {showPassword ? "Hide" : "Show"}
+                                                    </button>
+                                                </div>
+                                            </div>
+
+                                            <ul className="ko-password-checklist mb-3">
+                                                <div className="d-flex">
+                                                    <li className={hasMinLength ? "ko-check-met" : ""}>
+                                                        <span className="ko-check-icon">
+                                                            {hasMinLength ? "✓" : "○"}
+                                                        </span>
+                                                        At least 8 characters
+                                                    </li>
+                                                    <li className={hasUppercase ? "ko-check-met" : ""}>
+                                                        <span className="ko-check-icon">
+                                                            {hasUppercase ? "✓" : "○"}
+                                                        </span>
+                                                        One uppercase letter
+                                                    </li>
+                                                </div>
+                                                <div className="d-flex">
+                                                    <li className={hasLowercase ? "ko-check-met" : ""}>
+                                                        <span className="ko-check-icon">
+                                                            {hasLowercase ? "✓" : "○"}
+                                                        </span>
+                                                        One lowercase letter
+                                                    </li>
+                                                    <li className={hasSpecialChar ? "ko-check-met" : ""}>
+                                                        <span className="ko-check-icon">
+                                                            {hasSpecialChar ? "✓" : "○"}
+                                                        </span>
+                                                        One special character
+                                                    </li>
+                                                </div>
+
+
+                                            </ul>
+
+                                            <div className="mb-1">
+                                                <label htmlFor="password_confirmation" className="form-label">
+                                                    Confirm Password
+                                                </label>
+                                                <div className="ko-password-field">
+                                                    <input
+                                                        type={showConfirmPassword ? "text" : "password"}
+                                                        className="form-control"
+                                                        id="password_confirmation"
+                                                        name="password_confirmation"
+                                                        placeholder="Re-enter your password"
+                                                        value={formData.password_confirmation}
+                                                        onChange={handleChange}
+                                                    />
+                                                    <button
+                                                        type="button"
+                                                        className="ko-password-toggle"
+                                                        onClick={() =>
+                                                            setShowConfirmPassword((prev) => !prev)
+                                                        }
+                                                        aria-label={
+                                                            showConfirmPassword
+                                                                ? "Hide password"
+                                                                : "Show password"
+                                                        }
+                                                    >
+                                                        {showConfirmPassword ? "Hide" : "Show"}
+                                                    </button>
+                                                </div>
+                                            </div>
+
+                                            {formData.password_confirmation.length > 0 && (
+                                                <p
+                                                    className={
+                                                        passwordsMatch
+                                                            ? "ko-match-text ko-match-success"
+                                                            : "ko-match-text ko-match-error"
+                                                    }
+                                                >
+                                                    {passwordsMatch
+                                                        ? "Passwords match"
+                                                        : "Passwords do not match"}
+                                                </p>
+                                            )}
+                                        </div>
+                                    )}
+
+                                    {/* Navigation buttons */}
+                                    <div className="d-flex justify-content-between mt-4">
+                                        {step === 2 ? (
+                                            <button
+                                                type="button"
+                                                className="btn ko-btn-outline"
+                                                onClick={goPrevious}
+                                            >
+                                                Previous
+                                            </button>
+                                        ) : (
+                                            <span></span>
+                                        )}
+
+                                        {step === 1 && (
+                                            <button
+                                                type="button"
+                                                className="btn ko-btn-primary"
+                                                onClick={goNext}
+                                                disabled={!isSection1Valid}
+                                            >
+                                                Next
+                                            </button>
+                                        )}
+
+                                        {step === 2 && (
+                                            <button
+                                                type="submit"
+                                                className="btn ko-btn-vote"
+                                                // onClick={handleRegisterClick}
+                                                disabled={!isFormValid}
+                                            >
+                                                Register
+                                            </button>
+                                        )}
+                                    </div>
+                                </form>
                                 {/* Progress bar showing which section we are on */}
                                 <div className="mt-3">
                                     <div className="progress ko-progress">

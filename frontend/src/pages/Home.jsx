@@ -40,10 +40,14 @@ function Home() {
         console.log("Vote button clicked - voting modal not implemented yet.");
     };
 
+    // logged in user
+    const user = localStorage.getItem("userName");;
+    console.log(user);
+
     return (
         <div className="ko-page">
             {/* Navigation / Header */}
-            <Header />
+            <Header user={user} />
 
             <div className="main">
                 {/* Hero / Welcome Section */}

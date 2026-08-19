@@ -25,12 +25,13 @@ function Login() {
         setLoading(true);
         try {
             const res = await apiClient.post("/login", formData);
-
+            localStorage.setItem("token", res.data.token);
+            localStorage.setItem("userName", res.data.user.name);
             toast.success(res.data.message);
             if (res.data.user.user_role == 'admin') {
                 navigate('/dashboard');
             }
-            else{
+            else {
                 navigate('/')
             }
 

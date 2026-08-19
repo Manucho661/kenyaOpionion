@@ -12,12 +12,6 @@ const initialCandidates = [
     { id: 2, name: "Edwin Sifuna" },
 ];
 
-// Dummy regions data.
-const initialRegions = [
-    { id: 1, name: "Western" },
-    { id: 2, name: "Nairobi" },
-];
-
 
 
 function Dashboard() {
@@ -91,7 +85,16 @@ function Dashboard() {
         console.log(regionForm);
         e.preventDefault();
         try {
-            const res = await apiClient.post('/regions', regionForm);
+            const token = localStorage.getItem("token");
+
+            const res = await apiClient.post(
+                '/regions',
+                regionForm,
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                });
             toast.success(res.data.message);
             setRegions((prev) => [
                 ...prev,
